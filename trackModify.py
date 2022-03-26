@@ -76,24 +76,23 @@ Zoom3=3
 
 '''
 
-with open("newTracks.mp", "wt", encoding='windows-1251') as file:
+for track in newCoordList:
 
-    for track in newCoordList:
+    newFile = newFile + '''
 
-        newFile = newFile + '''
-    
 [POLYLINE]
 Type=0x2a
 EndLevel=3
 Data0='''
 
-        for coord in track:
+    for coord in track:
+        newFile = newFile + "(" + str(coord[0]) + "," + str(coord[1]) + "),"
 
-            newFile = newFile + "(" + str(coord[0]) + "," + str(coord[1]) + "),"
+    newFile = newFile.rstrip(",")
 
-        newFile = newFile.rstrip(",")
+newFile = newFile + "\n[END]"
 
-    newFile = newFile + "\n[END]"
+with open("newTracks.mp", "wt", encoding='windows-1251') as file:
 
     file.writelines(newFile)
 
